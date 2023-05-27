@@ -70,6 +70,7 @@ const RentModal = () => {
       dynamic(() => import("../Map"), {
         ssr: false,
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [location]
   );
 
@@ -99,14 +100,14 @@ const RentModal = () => {
     axios
       .post("/api/listings", data)
       .then(() => {
-        toast.success("Listing created!");
+        toast.success("Proriedade Criada!");
         router.refresh();
         reset();
         setStep(STEPS.CATEGORY);
         rentModal.onClose();
       })
       .catch(() => {
-        toast.error("Something went wrong.");
+        toast.error("Algo deu errado.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -210,7 +211,7 @@ const RentModal = () => {
   }
 
   if (step === STEPS.IMAGES) {
-    disabledStatus = isLoading || imageSrc;
+    disabledStatus = isLoading || !imageSrc;
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
@@ -233,6 +234,14 @@ const RentModal = () => {
           title="Como você descreveria seu lugar?"
           subtitle="Curto e gentil funciona melhor!"
         />
+        <div className="hidden">
+          <Input
+            id="title"
+            label="Titulo"
+            register={register}
+            errors={errors}
+          />
+        </div>
         <Input
           id="title"
           label="Titulo"

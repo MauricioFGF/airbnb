@@ -40,14 +40,14 @@ const Modal: React.FC<ModalProps> = ({
   }, [isOpen]);
 
   const handleClose = useCallback(() => {
-    if (disabled) {
+    if (disabled && disabledAction) {
       return;
     }
     setShowModal(false);
     setTimeout(() => {
       onClose();
     }, 300);
-  }, [disabled, onClose]);
+  }, [disabled, disabledAction, onClose]);
 
   const handleSubmit = useCallback(() => {
     if (disabled) {
@@ -57,11 +57,11 @@ const Modal: React.FC<ModalProps> = ({
   }, [disabled, onSubmit]);
 
   const handleSecondaryAction = useCallback(() => {
-    if (disabled || !secondaryAction) {
+    if (disabledAction || !secondaryAction) {
       return;
     }
     secondaryAction();
-  }, [disabled, secondaryAction]);
+  }, [disabledAction, secondaryAction]);
 
   if (!isOpen) {
     return null;
