@@ -74,6 +74,12 @@ const RentModal = () => {
     [location]
   );
 
+  const closeModal = () => {
+    reset();
+    setStep(STEPS.CATEGORY);
+    rentModal.onClose();
+  };
+
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
       shouldDirty: true,
@@ -295,7 +301,7 @@ const RentModal = () => {
       onSubmit={handleSubmit(onSubmit)}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
-      onClose={rentModal.onClose}
+      onClose={closeModal}
       body={bodyContent}
     />
   );
