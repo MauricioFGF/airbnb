@@ -1,6 +1,7 @@
 "use client";
 
 import { DateRange, Range, RangeKeyDict } from "react-date-range";
+import locale from "date-fns/locale/pt";
 
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -18,6 +19,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 }) => {
   return (
     <DateRange
+      locale={locale}
       rangeColors={["#262626"]}
       ranges={[value]}
       date={new Date()}

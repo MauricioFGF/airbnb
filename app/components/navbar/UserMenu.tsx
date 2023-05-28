@@ -38,9 +38,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     rentModal.onOpen();
   }, [currentUser, loginModal, rentModal]);
 
-  const logOut = () => {
-    signOut();
-    router.push("/");
+  const logOut = async () => {
+    await signOut();
   };
 
   return (
