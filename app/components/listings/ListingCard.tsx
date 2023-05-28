@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
@@ -11,6 +10,7 @@ import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 
 import HeartButton from "../HeartButton";
 import Button from "../Button";
+import Link from "next/link";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -31,7 +31,6 @@ const ListingCard: React.FC<ListingCardProps> = ({
   actionId = "",
   currentUser,
 }) => {
-  const router = useRouter();
   const { getByValue } = useCountries();
 
   const location = getByValue(data.locationValue);
@@ -73,62 +72,61 @@ const ListingCard: React.FC<ListingCardProps> = ({
   }, [reservation]);
 
   return (
-    <div
-      onClick={() => router.push(`/listings/${data.id}`)}
-      className="col-span-1 cursor-pointer group"
-    >
-      <div className="flex flex-col gap-2 w-full">
-        <div
-          className="
-            aspect-square 
-            w-full 
-            relative 
-            overflow-hidden 
-            rounded-xl
-          "
-        >
-          <Image
-            fill
-            className="
-              object-cover 
-              h-full 
-              w-full 
-              group-hover:scale-110 
-              transition
-            "
-            src={data.imageSrc}
-            alt="Listing"
-          />
+    <Link href={`/listings/${data.id}`} target="_blank">
+      <div className="col-span-1 cursor-pointer group">
+        <div className="flex flex-col gap-2 w-full">
           <div
             className="
+          aspect-square 
+          w-full 
+          relative 
+          overflow-hidden 
+          rounded-xl
+          "
+          >
+            <Image
+              fill
+              className="
+            object-cover 
+            h-full 
+            w-full 
+            group-hover:scale-110 
+            transition
+            "
+              src={data.imageSrc}
+              alt="Listing"
+            />
+            <div
+              className="
             absolute
             top-3
             right-3
-          "
-          >
-            <HeartButton listingId={data.id} currentUser={currentUser} />
+            "
+            >
+              <HeartButton listingId={data.id} currentUser={currentUser} />
+            </div>
           </div>
+          <div className="font-semibold text-lg">
+            {location?.region}, {location?.label}
+          </div>
+          <div className="font-light text-neutral-500">
+            {reservationDate || data.category}
+          </div>
+          <div className="flex flex-row items-center gap-1">
+            <div className="font-semibold">R$ {price}</div>
+            {!reservation && <div className="font-light">noite</div>}
+          </div>
+          {onAction && actionLabel && (
+            <Button
+              disabled={disabled}
+              small
+              label={actionLabel}
+              onClick={handleCancel}
+            />
+          )}
         </div>
-        <div className="font-semibold text-lg">
-          {location?.region}, {location?.label}
-        </div>
-        <div className="font-light text-neutral-500">
-          {reservationDate || data.category}
-        </div>
-        <div className="flex flex-row items-center gap-1">
-          <div className="font-semibold">R$ {price}</div>
-          {!reservation && <div className="font-light">noite</div>}
-        </div>
-        {onAction && actionLabel && (
-          <Button
-            disabled={disabled}
-            small
-            label={actionLabel}
-            onClick={handleCancel}
-          />
-        )}
       </div>
-    </div>
+    </Link>
   );
 };
 
