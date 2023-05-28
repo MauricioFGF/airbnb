@@ -13,12 +13,14 @@ import { SafeUser } from "@/app/types";
 
 //images
 import Avatar from "../Avatar";
+import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+  const router = useRouter();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const rentModal = useRentModal();
@@ -35,6 +37,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
 
     rentModal.onOpen();
   }, [currentUser, loginModal, rentModal]);
+
+  const logOut = () => {
+    signOut();
+    router.push("/");
+  };
 
   return (
     <div className="relative">
@@ -61,15 +68,21 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             {currentUser ? (
               <>
                 <MenuItem onClick={() => {}} label="Favoritos" />
-                <MenuItem onClick={() => {}} label="Minhas viagens" />
-                <MenuItem onClick={() => {}} label="Minhas reservas" />
+                <MenuItem
+                  onClick={() => router.push("/trips")}
+                  label="Minhas viagens"
+                />
+                <MenuItem
+                  onClick={() => router.push("/reservations")}
+                  label="Minhas reservas"
+                />
                 <MenuItem onClick={() => {}} label="Minhas propriedades" />
                 <MenuItem
                   onClick={rentModal.onOpen}
                   label="Anuncie seu espaço no Airbnb"
                 />
                 <hr />
-                <MenuItem onClick={() => signOut()} label="Sair da conta" />
+                <MenuItem onClick={logOut} label="Sair da conta" />
               </>
             ) : (
               <>

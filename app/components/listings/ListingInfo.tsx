@@ -52,6 +52,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             flex 
             flex-row 
             items-center
+            justify-between
             gap-2
           "
         >
