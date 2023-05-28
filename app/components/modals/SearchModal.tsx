@@ -70,7 +70,6 @@ const SearchModal = () => {
   const step = useMemo(() => {
     return searchModal.isStep;
   }, [searchModal.isStep]);
-  console.log(step);
 
   const onClose = () => {
     searchModal.onStep(STEPS.LOCATION);

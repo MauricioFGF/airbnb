@@ -13,9 +13,7 @@ const useSearchModal = create<SearchModalStore>((set) => ({
   isStep: 0,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
-  onStep: (value: any) => {
-    console.log("value", value), set({ isStep: value || 0, isOpen: true });
-  },
+  onStep: (value: any) => set({ isStep: value || 0, isOpen: true }),
 }));
 
 export default useSearchModal;
