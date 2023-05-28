@@ -151,6 +151,7 @@ const RentModal = () => {
           md:grid-cols-2 
           gap-3
           max-h-[50vh]
+          min-h-[150px]
           overflow-y-auto
         "
       >

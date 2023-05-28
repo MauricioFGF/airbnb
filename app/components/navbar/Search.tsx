@@ -68,6 +68,7 @@ const Search = () => {
         className="
           flex 
           flex-row 
+          
           justify-between
           h-full
         "
@@ -77,9 +78,13 @@ const Search = () => {
           className="
             flex
             items-center 
-            text-sm 
+            justify-center
+            text-xs
+            sm:text-sm 
+            text-center
             font-semibold 
-            px-6
+            px-2
+            sm:px-6
             py-1
           "
         >
@@ -88,13 +93,15 @@ const Search = () => {
         <div
           onClick={() => searchModal.onStep(1)}
           className="
-            hidden 
-            sm:flex 
+            flex 
             items-center
             justify-center
-            text-sm 
+            text-xs
+            sm:text-sm 
+            text-center
             font-semibold 
-            px-6 
+            px-2
+            sm:px-6 
             py-1
             border-x-[1px] 
             flex-1 
@@ -106,7 +113,8 @@ const Search = () => {
           onClick={() => searchModal.onStep(2)}
           className="
             text-sm 
-            pl-6 
+            pl-2 
+            sm:pl-6
             pr-2 
             text-gray-600 
             flex 
